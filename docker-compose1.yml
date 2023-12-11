@@ -1,0 +1,64 @@
+version: '3'
+services:
+  besu-node1:
+    image: hyperledger/besu:23.10.2
+    volumes:
+      - ./QBFT-Network:/var/lib/besu/QBFT-Network
+
+    ports:
+# RPC_HTTP_PORT:8545
+# RPC_WS_PORT:8546
+# P2P_PORT:30303
+# HTTP_GRAPHQL_PORT:8547
+# HTTP_ENGINE_JSON_RPC_PORT:8550
+# WS_ENGINE_JSON_RPC_PORT:8551
+      - 8545:8545
+      - 8546:8546
+      - 30303:30303
+      - 8547:8547
+      - 8550:8550
+      - 8551:8551
+#    depends_on:
+#      - prometheus  
+    command: --config-file=/var/lib/besu/QBFT-Network/configNodes/node-config.toml
+#    environment:
+#      - PATH=/opt/besu/bin:$PATH
+#      - JAVA_HOME=/opt/besu/java-19-openjdk-amd64
+#      - BESU_VERSION=23.10.1-SNAPSHOT #22.1.0-RC5-SNAPSHOT
+#      - NETWORK_ID=1
+
+    networks:
+      besu_network:
+        ipv4_address: 172.16.0.1
+
+  explorer:
+    image: consensys/quorum-explorer:f63a93d
+    volumes:
+      - ./QBFT-Network/Services/config/quorum-explorer/explorerConfig.json:/app/config.json
+      - ./QBFT-Network/Services/config/quorum-explorer/env:/app/.env.production
+#    depends_on:
+#      - rpcnode
+    ports:
+      - 25000:25000/tcp
+    networks:
+      besu_network:
+        ipv4_address: 172.16.0.101
+
+  prometheus:
+    image: prom/prometheus:v2.47.2
+    volumes:
+      - ./QBFT-Network/Services/config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./QBFT-Network/Services/prometheus/prometheus1:/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090/tcp
+    networks:
+      besu_network:
+        ipv4_address: 172.16.0.201
+
+networks:
+  besu_network:
+    name: besu_network
+    driver: overlay
+    external: true
