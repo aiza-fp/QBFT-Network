@@ -3,7 +3,7 @@ services:
   besu-node1:
     image: hyperledger/besu:23.10.2
     volumes:
-      - ./QBFT-Network:/var/lib/besu/QBFT-Network
+      - .:/var/lib/besu/QBFT-Network
 
     ports:
 # RPC_HTTP_PORT:8545
@@ -31,11 +31,11 @@ services:
       besu_network:
         ipv4_address: 172.16.0.1
 
-  explorer:
+  explorer1:
     image: consensys/quorum-explorer:f63a93d
     volumes:
-      - ./QBFT-Network/Services/config/quorum-explorer/explorerConfig.json:/app/config.json
-      - ./QBFT-Network/Services/config/quorum-explorer/env:/app/.env.production
+      - ./Services/config/quorum-explorer/explorerConfig.json:/app/config.json
+      - ./Services/config/quorum-explorer/env:/app/.env.production
 #    depends_on:
 #      - rpcnode
     ports:
@@ -44,11 +44,11 @@ services:
       besu_network:
         ipv4_address: 172.16.0.101
 
-  prometheus:
+  prometheus1:
     image: prom/prometheus:v2.47.2
     volumes:
-      - ./QBFT-Network/Services/config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./QBFT-Network/Services/prometheus/prometheus1:/prometheus
+      - ./Services/config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./Services/prometheus/prometheus1:/prometheus
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     ports:
