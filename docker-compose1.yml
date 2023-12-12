@@ -2,6 +2,7 @@ version: '3'
 services:
   besu-node1:
     image: hyperledger/besu:23.10.2
+    hostname: besu_node1
     volumes:
       - .:/var/lib/besu/QBFT-Network
 
