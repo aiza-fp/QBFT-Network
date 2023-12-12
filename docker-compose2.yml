@@ -29,7 +29,7 @@ services:
 
     networks:
       besu_network:
-        ipv4_address: 172.16.0.2
+        ipv4_address: 172.16.0.3
 
   explorer2:
     image: consensys/quorum-explorer:f63a93d
