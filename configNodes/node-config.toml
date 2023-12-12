@@ -71,7 +71,7 @@ metrics-port=9545 #The port (TCP) on which Prometheus accesses Besu metrics. The
 # Enabled = false
 
 # Hecho por mi para la tabla [Privacy]
-privacy-enabled=true #Enables or disables private transactions. The default is false.
+privacy-enabled=false #Enables or disables private transactions. The default is false.
 # Esta ultima variable es parte de "Private networks" https://besu.hyperledger.org/private-networks/concepts/privacy#privacy-enabled-networks
 
 host-allowlist=["*"]
