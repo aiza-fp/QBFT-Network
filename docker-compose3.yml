@@ -31,32 +31,6 @@ services:
       besu_network:
         ipv4_address: 172.16.0.4
 
-  explorer3:
-    image: consensys/quorum-explorer:f63a93d
-    volumes:
-      - ./Services/config/quorum-explorer/explorerConfig.json:/app/config.json
-      - ./Services/config/quorum-explorer/env:/app/.env.production
-#    depends_on:
-#      - rpcnode
-    ports:
-      - 25000:25000/tcp
-    networks:
-      besu_network:
-        ipv4_address: 172.16.0.103
-
-  prometheus3:
-    image: prom/prometheus:v2.47.2
-    volumes:
-      - ./Services/config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./Services/prometheus/prometheus3:/prometheus
-    command:
-      - --config.file=/etc/prometheus/prometheus.yml
-    ports:
-      - 9090:9090/tcp
-    networks:
-      besu_network:
-        ipv4_address: 172.16.0.203
-
 networks:
   besu_network:
     name: besu_network
