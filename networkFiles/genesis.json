@@ -3,9 +3,9 @@
     "chainId" : 1337,
     "berlinBlock" : 0,
     "qbft" : {
-      "blockperiodseconds" : 2,
+      "blockperiodseconds" : 10,
       "epochlength" : 30000,
-      "requesttimeoutseconds" : 4
+      "requesttimeoutseconds" : 20
     }
   },
   "nonce" : "0x0",
